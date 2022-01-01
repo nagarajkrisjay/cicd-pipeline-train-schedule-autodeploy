@@ -3,6 +3,7 @@ pipeline {
     environment {
         //be sure to replace "nagarajkrisjay" with your own Docker Hub username
         DOCKER_IMAGE_NAME = "nagarajkrisjay/train-schedule"
+        CANARY_REPLICAS = 0
     }
     stages {
         stage('Build') {
@@ -74,9 +75,7 @@ pipeline {
             when {
                 branch 'master'
             }
-            environment { 
-                CANARY_REPLICAS = 0
-            }
+          
             steps {
                 milestone(1)
                 kubernetesDeploy(
